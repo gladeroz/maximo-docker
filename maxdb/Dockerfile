@@ -11,7 +11,8 @@
 # limitations under the License.
 FROM centos:7
 
-MAINTAINER Yasutaka Nishimura nishi2go@gmail.com
+MAINTAINER Yasutaka Nishimura <nishi2go@gmail.com>
+MAINTAINER Julien Barreault <barreaultj@gmail.com>
 
 ARG url=http://images
 

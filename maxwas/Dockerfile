@@ -12,7 +12,10 @@
 
 FROM centos:7
 
-ARG url=http://images
+MAINTAINER Yasutaka Nishimura <nishi2go@gmail.com>
+MAINTAINER Julien Barreault <barreaultj@gmail.com>
+
+ARG url=ftp://10.142.6.112
 ARG fp=7
 ARG javafp=5.16
 
@@ -34,7 +37,7 @@ RUN ulimit -n 8192
 RUN echo "fs.file-max = 1232457" >> /etc/sysctl.d/99-maximo.conf
 
 # Install IBM Installation Manager 1.8
-ENV IM_IMAGE agent.installer.linux.gtk.x86_64_1.8.0.20140902_1503.zip
+ENV IM_IMAGE agent.installer.linux.gtk.x86_64_1.8.2000.20150303_1526.zip
 
 RUN mkdir /Install_Mgr && wget -q $url/$IM_IMAGE \
  && unzip -q -d /Install_Mgr $IM_IMAGE \

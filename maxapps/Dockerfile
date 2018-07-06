@@ -11,7 +11,8 @@
 # limitations under the License.
 FROM maximo/maxwas
 
-MAINTAINER Yasutaka Nishimura nishi2go@gmail.com
+MAINTAINER Yasutaka Nishimura <nishi2go@gmail.com>
+MAINTAINER Julien Barreault <barreaultj@gmail.com>
 
 ENV WAS_HOME /opt/IBM/WebSphere/AppServer
 ENV PROFILE_NAME ctgAppSrv01

@@ -13,10 +13,11 @@
 FROM centos:7
 
 MAINTAINER Yasutaka Nishimura <nishi2go@gmail.com>
+MAINTAINER Julien Barreault <barreaultj@gmail.com>
 
 ARG fp=9
 
-ARG url=http://images
+ARG url=ftp://10.142.6.112
 ARG httpport=80
 
 ENV TEMP /tmp
@@ -25,7 +26,7 @@ WORKDIR /tmp
 RUN yum update -y && yum install -y wget unzip nc which && yum clean all
 
 # Install IBM Installation Manager 1.8
-ENV IM_IMAGE agent.installer.linux.gtk.x86_64_1.8.0.20140902_1503.zip
+ENV IM_IMAGE agent.installer.linux.gtk.x86_64_1.8.2000.20150303_1526.zip
 
 RUN mkdir /Install_Mgr && wget -q $url/$IM_IMAGE \
  && unzip -q -d /Install_Mgr $IM_IMAGE \
@@ -50,7 +51,7 @@ RUN wget -q $url/$MAM_IMAGE && tar zxpf $MAM_IMAGE \
  -acceptLicense -log /tmp/MAM_Install_Unix.xml \
  && rm $MAM_IMAGE
 
-## Install Maximo V7.6.0.7 feature packs
+## Install Maximo V7.6.0.9 feature packs
 RUN mkdir /work
 WORKDIR /work
 ENV MAM_FP_IMAGE MAMMTFP760${fp}IMRepo.zip
@@ -61,10 +62,33 @@ RUN wget -q $url/$MAM_FP_IMAGE && sleep 30 \
  -installationDirectory /opt/IBM/SMP -log /tmp/FP_Install_Unix.xml -acceptLicense \
  && rm $MAM_FP_IMAGE
 
+## Install Maximo V7.6.0.9 ifix 5
+ENV MAM_IFIX 20180522-0831
+ENV MAM_IFIX_IMAGE TPAE_7609_IFIX.$MAM_IFIX.im.zip
+
+RUN wget -q $url/$MAM_IFIX_IMAGE && sleep 5 \
+ && /opt/IBM/InstallationManager/eclipse/tools/imcl install \
+ com.ibm.tivoli.tpae.base.mam.main.$MAM_IFIX -repositories /work/$MAM_IFIX_IMAGE \
+ -installationDirectory /opt/IBM/SMP -log /tmp/IFIX_Install_Unix.xml \
+ && rm $MAM_IFIX_IMAGE
+
+#Installation scheduler
+WORKDIR /Launchpad
+
+ENV MAM_SCHEDULER_IMAGE MAM_Scheduler_7.6.7
+ENV MAM_SCHEDULER_ZIP MAM_Scheduler_7.6.7.zip
+ENV MAM_SCHEDULER_SILENT Scheduler_Silent_ResponseFile_Unix.xml
+
+RUN wget -q $url/$MAM_SCHEDULER_ZIP && wget -q $url/$MAM_SCHEDULER_SILENT
+ && unzip -q -d $MAM_SCHEDULER_IMAGE $MAM_SCHEDULER_ZIP
+ && /opt/IBM/InstallationManager/eclipse/tools/imcl -silent -input $MAM_SCHEDULER_SILENT -log /tmp/SCHEDULE_Install_Unix.xml -acceptLicense
+ && rm $MAM_SCHEDULER_ZIP
+
 ENV MAXADMIN_PASSWORD maxadmin
 ENV MAXREG_PASSWORD maxreg
 ENV MXINTADM_PASSWORD mxintadm
 ENV BASE_LANG en
+ENV ADD_LANGS fr
 ENV ADMIN_EMAIL_ADDRESS root@localhost
 ENV SMTP_SERVER_HOST_NAME localhost
 ENV MAXDB MAXDB76
