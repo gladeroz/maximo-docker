@@ -17,7 +17,7 @@ MAINTAINER Julien Barreault <barreaultj@gmail.com>
 
 ARG fp=9
 
-ARG url=ftp://10.142.6.112
+ARG url=ftp://10.142.6.112/maximo
 ARG httpport=80
 
 ENV TEMP /tmp

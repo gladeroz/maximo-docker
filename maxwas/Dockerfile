@@ -15,7 +15,7 @@ FROM centos:7
 MAINTAINER Yasutaka Nishimura <nishi2go@gmail.com>
 MAINTAINER Julien Barreault <barreaultj@gmail.com>
 
-ARG url=ftp://10.142.6.112
+ARG url=ftp://10.142.6.112/maxwas
 ARG fp=7
 ARG javafp=5.16
 
