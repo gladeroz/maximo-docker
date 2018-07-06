@@ -16,6 +16,7 @@ MAINTAINER Yasutaka Nishimura <nishi2go@gmail.com>
 MAINTAINER Julien Barreault <barreaultj@gmail.com>
 
 ARG url=ftp://10.142.6.112/maxwas
+ARG urlopt="--user=maximo --password=maximo"
 ARG fp=7
 ARG javafp=5.16
 
@@ -25,7 +26,7 @@ WORKDIR /tmp
 RUN yum update -y && yum install -y wget ksh unzip tar bc net-tools bind-utils nc \
  pam.i686 psmisc compat-libstdc++-33 compat-libstdc++-33.i686 which && yum clean all
 
-RUN wget -q https://raw.githubusercontent.com/vishnubob/wait-for-it/master/wait-for-it.sh \
+RUN wget $urlopt -q https://raw.githubusercontent.com/vishnubob/wait-for-it/master/wait-for-it.sh \
     && mv wait-for-it.sh /usr/local/bin && chmod +x /usr/local/bin/wait-for-it.sh
 
 RUN echo "root soft nofile 8192" >> /etc/security/limits.d/99-maximo.conf
@@ -39,7 +40,7 @@ RUN echo "fs.file-max = 1232457" >> /etc/sysctl.d/99-maximo.conf
 # Install IBM Installation Manager 1.8
 ENV IM_IMAGE agent.installer.linux.gtk.x86_64_1.8.2000.20150303_1526.zip
 
-RUN mkdir /Install_Mgr && wget -q $url/$IM_IMAGE \
+RUN mkdir /Install_Mgr && wget $urlopt -q $url/$IM_IMAGE \
  && unzip -q -d /Install_Mgr $IM_IMAGE \
  && rm $IM_IMAGE \
  && /Install_Mgr/installc -log /tmp/IM_Install_Unix.xml -acceptLicense \
@@ -49,8 +50,8 @@ RUN mkdir /Install_Mgr && wget -q $url/$IM_IMAGE \
 # Install IBM WebSphere Application Server traditional V9
 ENV WASND_BASE_NAME WAS_ND_V9.0_MP_ML
 ENV WASND_JAVA_BASE_NAME sdk.repo.8030.java8.linux
-RUN wget -q ${url}/${WASND_BASE_NAME}.zip \
- && wget -q ${url}/${WASND_JAVA_BASE_NAME}.zip \
+RUN wget $urlopt -q ${url}/${WASND_BASE_NAME}.zip \
+ && wget $urlopt -q ${url}/${WASND_JAVA_BASE_NAME}.zip \
  && /opt/IBM/InstallationManager/eclipse/tools/imcl \
    -acceptLicense install com.ibm.websphere.ND.v90 com.ibm.java.jdk.v8 \
    -repositories /tmp/${WASND_BASE_NAME}.zip,/tmp/${WASND_JAVA_BASE_NAME}.zip \
@@ -63,7 +64,7 @@ RUN wget -q ${url}/${WASND_BASE_NAME}.zip \
 
 # Install IBM WebSphere Application Server traditional Fixpack
 ENV WASFP_BASE_NAME 9.0.0-WS-WAS-FP00${fp}
-RUN wget -q ${url}/${WASFP_BASE_NAME}.zip \
+RUN wget $urlopt -q ${url}/${WASFP_BASE_NAME}.zip \
  && /opt/IBM/InstallationManager/eclipse/tools/imcl \
    -acceptLicense install com.ibm.websphere.ND.v90 \
    -repositories /tmp/${WASFP_BASE_NAME}.zip \
@@ -73,7 +74,7 @@ RUN wget -q ${url}/${WASFP_BASE_NAME}.zip \
 
 # Install IBM Java SDK Fix pack
 ENV JAVA_SDK_NAME ibm-java-sdk-8.0-${javafp}-linux-x64-installmgr
-RUN wget -q ${url}/${JAVA_SDK_NAME}.zip \
+RUN wget $urlopt -q ${url}/${JAVA_SDK_NAME}.zip \
  && /opt/IBM/InstallationManager/eclipse/tools/imcl \
    -acceptLicense install com.ibm.java.jdk.v8 \
    -repositories /tmp/${JAVA_SDK_NAME}.zip \
