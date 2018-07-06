@@ -15,7 +15,7 @@ MAINTAINER Yasutaka Nishimura <nishi2go@gmail.com>
 MAINTAINER Julien Barreault <barreaultj@gmail.com>
 
 ARG url=ftp://10.142.6.112/maxdb
-ARG url_opt=--user=maximo --password=maximo
+ARG urlopt="--user=maximo --password=maximo"
 
 ARG ver=11.1
 ARG fp=3fp3
@@ -65,7 +65,7 @@ VOLUME $MAXDB_DATADIR
 
 # Install DB2 V11.1
 COPY db2awse.rsp /work
-RUN wget $url_opt -q $url/$DB2_IMAGE \
+RUN wget $urlopt -q $url/$DB2_IMAGE \
   && bsdtar -zxpf $DB2_IMAGE \
   && ./server_awse_o/db2setup -r ./db2awse.rsp \
   && /opt/ibm/db2/V11.1/adm/db2licm -a ./server_awse_o/db2/license/db2awse_o.lic \
@@ -76,7 +76,7 @@ RUN /opt/ibm/db2/V${ver}/bin/db2fmcu -d
 
 # Install DB2 Fixpack
 ENV DB2_FP_IMAGE v${ver}.${fp}_linuxx64_server_t.tar.gz
-RUN wget $url_opt -q $url/$DB2_FP_IMAGE \
+RUN wget $urlopt -q $url/$DB2_FP_IMAGE \
   && bsdtar -zxpf $DB2_FP_IMAGE \
   && cd server_t \
   && ./installFixPack -n -b /opt/ibm/db2/V${ver} \
