@@ -16,12 +16,10 @@ hub="http://github.com/gladeroz/maximo-docker.git"
 docker network create build
 
 if [ -d maximo-docker ]; then
-   git clone $hub temp
-   mv temp maximo-docker
-   rm -rf temp
-else
-   git clone $hub
+   rm -rf maximo-docker
 fi
+
+git clone $hub
 
 mkdir -p /oracle/persistence
 chmod -R 777 /oracle
