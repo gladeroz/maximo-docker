@@ -79,8 +79,8 @@ ENV MAM_SCHEDULER_ZIP MAM_Scheduler_7.6.7.zip
 RUN wget $urlopt -q $url/$MAM_SCHEDULER_ZIP && sleep 5 \
  && /opt/IBM/InstallationManager/eclipse/tools/imcl install \
  com.ibm.tivoli.tpae.IS.Scheduler -repositories /work/$MAM_SCHEDULER_ZIP \
- -installationDirectory /opt/IBM/SMP -log /tmp/SCHEDULE_Install_Unix.xml \
- && rm $MAM_IFIX_IMAGE
+ -installationDirectory /opt/IBM/SMP -acceptLicense -log /tmp/SCHEDULE_Install_Unix.xml \
+ && rm $MAM_SCHEDULER_ZIP
 
 ENV MAXADMIN_PASSWORD maxadmin
 ENV MAXREG_PASSWORD maxreg
