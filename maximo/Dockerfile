@@ -57,7 +57,7 @@ RUN mkdir /work
 WORKDIR /work
 ENV MAM_FP_IMAGE MAMMTFP760${fp}IMRepo.zip
 
-RUN wget $urlopt -q $url/$MAM_FP_IMAGE && sleep 30 \
+RUN wget $urlopt -q $url/$MAM_FP_IMAGE && sleep 5 \
  && /opt/IBM/InstallationManager/eclipse/tools/imcl install \
  com.ibm.tivoli.tpae.base.mam.main -repositories /work/$MAM_FP_IMAGE \
  -installationDirectory /opt/IBM/SMP -log /tmp/FP_Install_Unix.xml -acceptLicense \
@@ -79,7 +79,7 @@ ENV MAM_SCHEDULER_ZIP MAM_Scheduler_7.6.7.zip
 RUN wget $urlopt -q $url/$MAM_SCHEDULER_ZIP && sleep 5 \
  && /opt/IBM/InstallationManager/eclipse/tools/imcl install \
  com.ibm.tivoli.tpae.IS.Scheduler -repositories /work/$MAM_SCHEDULER_ZIP \
- -installationDirectory /opt/IBM/SMP -acceptLicense -log /tmp/SCHEDULE_Install_Unix.xml \
+ -installationDirectory /opt/IBM/SMP -log /tmp/SCHEDULE_Install_Unix.xml -acceptLicense \
  && rm $MAM_SCHEDULER_ZIP
 
 ENV MAXADMIN_PASSWORD maxadmin
