@@ -110,11 +110,11 @@ EOF
 
 sleep 10
 
-/opt/IBM/SMP/ConfigTool/scripts/reconfigurePae.sh -action deployDatabaseConfiguration -deployDemoData
-
 /opt/IBM/SMP/ConfigTool/scripts/reconfigurePae.sh -action updateApplication \
-    -updatedb -deploymaximoear -deployDemoData -enableSkin tivoli13 -enableEnhancedNavigation
-
+    -updatedb -deploymaximoear -enableSkin tivoli13 -enableEnhancedNavigation
+    
+/opt/IBM/SMP/ConfigTool/scripts/reconfigurePae.sh -action deployDatabaseConfiguration -deployDemoData
+    
 # Start all application servers ... sometimes to fail to start servers duing updateApplicaton task
 /opt/IBM/SMP/ConfigTool/wasclient/ThinWsadmin.sh -lang jython \
     -username "$DMGR_ADMIN_USER" -password "$DMGR_ADMIN_PASSWORD" \
