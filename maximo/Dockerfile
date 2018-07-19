@@ -78,10 +78,10 @@ ENV MAM_SCHEDULER_IMAGE MAM_Scheduler_7.6.7
 ENV MAM_SCHEDULER_ZIP MAM_Scheduler_7.6.7.zip
 ENV MAM_SCHEDULER_SILENT Scheduler_Silent_ResponseFile_Unix.xml
 
-RUN wget $urlopt -q $url/$MAM_SCHEDULER_ZIP && wget $urlopt -q $url/$MAM_SCHEDULER_SILENT
-RUN unzip -d $MAM_SCHEDULER_IMAGE $MAM_SCHEDULER_ZIP
-RUN /opt/IBM/InstallationManager/eclipse/tools/imcl -silent -input $MAM_SCHEDULER_SILENT -log /tmp/SCHEDULE_Install_Unix.xml -acceptLicense
-RUN rm $MAM_SCHEDULER_ZIP
+RUN wget $urlopt -q $url/$MAM_SCHEDULER_ZIP && wget $urlopt -q $url/$MAM_SCHEDULER_SILENT \
+ && /opt/IBM/InstallationManager/eclipse/tools/imcl -silent -input $MAM_SCHEDULER_SILENT \
+ -log /tmp/SCHEDULE_Install_Unix.xml -acceptLicense \
+ && rm $MAM_SCHEDULER_ZIP
 
 ENV MAXADMIN_PASSWORD maxadmin
 ENV MAXREG_PASSWORD maxreg
