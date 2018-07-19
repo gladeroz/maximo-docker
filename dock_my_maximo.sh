@@ -25,14 +25,14 @@ cd $startfolder/maximo-docker
 
 docker build -t maximo/db2:11.1.3 -t maximo/db2:latest --network build maxdb
 
-#docker build -t maximo/maxwas:9.0.0.7 -t maximo/maxwas:latest --network build maxwas
+docker build -t maximo/maxwas:9.0.0.7 -t maximo/maxwas:latest --network build maxwas
 
-#docker build -t maximo/maxdmgr:9.0.0.7 -t maximo/maxdmgr:latest maxdmgr
+docker build -t maximo/maxdmgr:9.0.0.7 -t maximo/maxdmgr:latest maxdmgr
 
-#docker build -t maximo/maxapps:9.0.0.7 -t maximo/maxapps:latest maxapps
+docker build -t maximo/maxapps:9.0.0.7 -t maximo/maxapps:latest maxapps
 
-#docker build -t maximo/maxweb:9.0.0.7 -t maximo/maxweb:latest --network build maxweb
+docker build -t maximo/maxweb:9.0.0.7 -t maximo/maxweb:latest --network build maxweb
 
-#docker build -t maximo/maximo:7.6.0.9 -t maximo/maximo:latest --network build maximo
+docker build -t maximo/maximo:7.6.0.9 -t maximo/maximo:latest --network build maximo
 
 docker-compose up -d

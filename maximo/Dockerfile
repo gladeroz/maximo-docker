@@ -74,14 +74,12 @@ RUN wget $urlopt -q $url/$MAM_IFIX_IMAGE && sleep 5 \
  && rm $MAM_IFIX_IMAGE
 
 #Installation scheduler
-WORKDIR /Launchpad
-
 ENV MAM_SCHEDULER_IMAGE MAM_Scheduler_7.6.7
 ENV MAM_SCHEDULER_ZIP MAM_Scheduler_7.6.7.zip
 ENV MAM_SCHEDULER_SILENT Scheduler_Silent_ResponseFile_Unix.xml
 
 RUN wget $urlopt -q $url/$MAM_SCHEDULER_ZIP && wget $urlopt -q $url/$MAM_SCHEDULER_SILENT
-RUN unzip -q -d /Launchpad/$MAM_SCHEDULER_IMAGE $MAM_SCHEDULER_ZIP
+RUN unzip -d $MAM_SCHEDULER_IMAGE $MAM_SCHEDULER_ZIP
 RUN /opt/IBM/InstallationManager/eclipse/tools/imcl -silent -input $MAM_SCHEDULER_SILENT -log /tmp/SCHEDULE_Install_Unix.xml -acceptLicense
 RUN rm $MAM_SCHEDULER_ZIP
 
