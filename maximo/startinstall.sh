@@ -110,6 +110,8 @@ EOF
 
 sleep 10
 
+/opt/IBM/SMP/ConfigTool/scripts/reconfigurePae.sh -action deployDatabaseConfiguration -deployDemoData
+
 /opt/IBM/SMP/ConfigTool/scripts/reconfigurePae.sh -action updateApplication \
     -updatedb -deploymaximoear -deployDemoData -enableSkin tivoli13 -enableEnhancedNavigation
 
