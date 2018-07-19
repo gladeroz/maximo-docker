@@ -17,7 +17,7 @@ MAINTAINER Julien Barreault <barreaultj@gmail.com>
 
 ARG fp=9
 
-ARG url=ftp://10.142.6.112/maximo
+ARG url=ftp://192.168.1.23/maximo
 ARG urlopt="--user=maximo --password=maximo"
 ARG httpport=80
 
