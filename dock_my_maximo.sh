@@ -7,9 +7,6 @@ docker volume rm $(docker volume ls -qf dangling=true)
 
 docker login -u gladiz -p G0dzila0@
 
-usermod -aG vboxsf maximo
-usermod -aG vboxsf root
-
 startfolder=`pwd`
 hub="http://github.com/gladeroz/maximo-docker.git"
 
