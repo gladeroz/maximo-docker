@@ -36,3 +36,5 @@ docker build -t maximo/maxweb:9.0.0.7 -t maximo/maxweb:latest --network build ma
 docker build -t maximo/maximo:7.6.0.9 -t maximo/maximo:latest --network build maximo
 
 docker-compose up -d
+
+docker-compose logs -f -t
