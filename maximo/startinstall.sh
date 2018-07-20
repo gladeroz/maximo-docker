@@ -103,19 +103,19 @@ EOF
     -username "$DMGR_ADMIN_USER" -password "$DMGR_ADMIN_PASSWORD" \
     -f /opt/SetAutoRestart.py
 
-# Stop all application servers
-# /opt/IBM/SMP/ConfigTool/wasclient/ThinWsadmin.sh -lang jython \
-#    -username "$DMGR_ADMIN_USER" -password "$DMGR_ADMIN_PASSWORD" \
-#    -f /opt/StopAllServers.py
-
 sleep 10
 
 /opt/IBM/SMP/ConfigTool/scripts/reconfigurePae.sh -action updateApplication \
     -updatedb -deploymaximoear -enableSkin tivoli13 -enableEnhancedNavigation
     
+# Stop all application servers
+/opt/IBM/SMP/ConfigTool/wasclient/ThinWsadmin.sh -lang jython \
+    -username "$DMGR_ADMIN_USER" -password "$DMGR_ADMIN_PASSWORD" \
+    -f /opt/StopAllServers.py
+    
 /opt/IBM/SMP/ConfigTool/scripts/reconfigurePae.sh -action deployDatabaseConfiguration -deployDemoData
     
-# Start all application servers ... sometimes to fail to start servers duing updateApplicaton task
+# Start all application servers ... sometimes to fail to start servers during updateApplicaton task
 /opt/IBM/SMP/ConfigTool/wasclient/ThinWsadmin.sh -lang jython \
     -username "$DMGR_ADMIN_USER" -password "$DMGR_ADMIN_PASSWORD" \
     -f /opt/StartAllServers.py
