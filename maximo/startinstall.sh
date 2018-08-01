@@ -106,7 +106,7 @@ EOF
 sleep 10
 
 /opt/IBM/SMP/ConfigTool/scripts/reconfigurePae.sh -action updateApplication \
-    -updatedb -deploymaximoear -enableSkin tivoli13 -enableEnhancedNavigation
+    -updatedb -deploymaximoear -enableSkin iot18 -enableEnhancedNavigation
     
 # Stop all application servers
 /opt/IBM/SMP/ConfigTool/wasclient/ThinWsadmin.sh -lang jython \

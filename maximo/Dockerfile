@@ -55,7 +55,9 @@ RUN wget $urlopt -q $url/$MAM_IMAGE && tar zxpf $MAM_IMAGE \
 ## Install Maximo V7.6.0.9 feature packs
 RUN mkdir /work
 WORKDIR /work
-ENV MAM_FP_IMAGE MAMMTFP760${fp}IMRepo.zip
+
+ENV MAM_FP_IMAGE 7.6.1.0-TIV-MAMKCNL-FP0001.zip
+##ENV MAM_FP_IMAGE MAMMTFP760${fp}IMRepo.zip
 
 RUN wget $urlopt -q $url/$MAM_FP_IMAGE && sleep 5 \
  && /opt/IBM/InstallationManager/eclipse/tools/imcl install \
@@ -64,14 +66,14 @@ RUN wget $urlopt -q $url/$MAM_FP_IMAGE && sleep 5 \
  && rm $MAM_FP_IMAGE
 
 ## Install Maximo V7.6.0.9 ifix 5
-ENV MAM_IFIX 20180522-0831
-ENV MAM_IFIX_IMAGE TPAE_7609_IFIX.$MAM_IFIX.im.zip
+##ENV MAM_IFIX 20180522-0831
+##ENV MAM_IFIX_IMAGE TPAE_7609_IFIX.$MAM_IFIX.im.zip
 
-RUN wget $urlopt -q $url/$MAM_IFIX_IMAGE && sleep 5 \
- && /opt/IBM/InstallationManager/eclipse/tools/imcl install \
- com.ibm.tivoli.tpae.base.mam.main.$MAM_IFIX -repositories /work/$MAM_IFIX_IMAGE \
- -installationDirectory /opt/IBM/SMP -log /tmp/IFIX_Install_Unix.xml \
- && rm $MAM_IFIX_IMAGE
+##RUN wget $urlopt -q $url/$MAM_IFIX_IMAGE && sleep 5 \
+## && /opt/IBM/InstallationManager/eclipse/tools/imcl install \
+## com.ibm.tivoli.tpae.base.mam.main.$MAM_IFIX -repositories /work/$MAM_IFIX_IMAGE \
+## -installationDirectory /opt/IBM/SMP -log /tmp/IFIX_Install_Unix.xml \
+## && rm $MAM_IFIX_IMAGE
 
 #Installation scheduler
 ENV MAM_SCHEDULER_ZIP MAM_Scheduler_7.6.7.zip
