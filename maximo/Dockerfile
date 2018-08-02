@@ -15,8 +15,6 @@ FROM centos:7
 MAINTAINER Yasutaka Nishimura <nishi2go@gmail.com>
 MAINTAINER Julien Barreault <barreaultj@gmail.com>
 
-ARG fp=9
-
 ARG url=ftp://192.168.1.23/maximo
 ARG urlopt="--user=maximo --password=maximo"
 ARG httpport=80
@@ -27,7 +25,7 @@ WORKDIR /tmp
 RUN yum update -y && yum install -y wget unzip nc which && yum clean all
 
 # Install IBM Installation Manager 1.8
-ENV IM_IMAGE agent.installer.linux.gtk.x86_64_1.8.2000.20150303_1526.zip
+ENV IM_IMAGE agent.installer.linux.gtk.x86_64_1.8.9001.20180709_1302.zip
 
 RUN mkdir /Install_Mgr && wget $urlopt -q $url/$IM_IMAGE \
  && unzip -q -d /Install_Mgr $IM_IMAGE \
@@ -45,7 +43,7 @@ WORKDIR /Launchpad
 ENV BYPASS_PRS=True
 
 ## Install Maximo V7.6
-ENV MAM_IMAGE MAM_7.6.0.0_LINUX64.tar.gz
+ENV MAM_IMAGE MAM_7.6.1.0_LINUX64.tar.gz
 RUN wget $urlopt -q $url/$MAM_IMAGE && tar zxpf $MAM_IMAGE \
  && /opt/IBM/InstallationManager/eclipse/tools/imcl \
  -input /Launchpad/SilentResponseFiles/Installer/Unix/ResponseFile_MAM_Install_Unix.xml \
@@ -56,14 +54,13 @@ RUN wget $urlopt -q $url/$MAM_IMAGE && tar zxpf $MAM_IMAGE \
 RUN mkdir /work
 WORKDIR /work
 
-ENV MAM_FP_IMAGE 7.6.1.0-TIV-MAMKCNL-FP0001.zip
-##ENV MAM_FP_IMAGE MAMMTFP760${fp}IMRepo.zip
+##ENV MAM_FP_IMAGE MAMMTFP7609IMRepo.zip
 
-RUN wget $urlopt -q $url/$MAM_FP_IMAGE && sleep 5 \
- && /opt/IBM/InstallationManager/eclipse/tools/imcl install \
- com.ibm.tivoli.tpae.base.mam.main -repositories /work/$MAM_FP_IMAGE \
- -installationDirectory /opt/IBM/SMP -log /tmp/FP_Install_Unix.xml -acceptLicense \
- && rm $MAM_FP_IMAGE
+##RUN wget $urlopt -q $url/$MAM_FP_IMAGE && sleep 5 \
+## && /opt/IBM/InstallationManager/eclipse/tools/imcl install \
+## com.ibm.tivoli.tpae.base.mam.main -repositories /work/$MAM_FP_IMAGE \
+## -installationDirectory /opt/IBM/SMP -log /tmp/FP_Install_Unix.xml -acceptLicense \
+## && rm $MAM_FP_IMAGE
 
 ## Install Maximo V7.6.0.9 ifix 5
 ##ENV MAM_IFIX 20180522-0831

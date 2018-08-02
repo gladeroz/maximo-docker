@@ -33,7 +33,7 @@ docker build -t maximo/maxapps:9.0.0.7 -t maximo/maxapps:latest maxapps
 
 docker build -t maximo/maxweb:9.0.0.7 -t maximo/maxweb:latest --network build maxweb
 
-docker build -t maximo/maximo:7.6.0.9 -t maximo/maximo:latest --network build maximo
+docker build -t maximo/maximo:7.6.1 -t maximo/maximo:latest --network build maximo
 
 docker-compose up -d
 

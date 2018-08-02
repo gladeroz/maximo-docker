@@ -36,14 +36,14 @@ Maximo on Docker enables to run Maximo Asset Management on Docker. The images ar
   IBM Maximo Asset Management V7.6 Feature Pack 9 binaries:
   * MAMMTFP7609IMRepo.zip
 
-  IBM WebSphere Application Server traditional Fixpack V9.0.0.7 binaries:
-  * 9.0.0-WS-WAS-FP007.zip
+  IBM WebSphere Application Server traditional Fixpack V9.0.0.8 binaries:
+  * 9.0.0-WS-WAS-FP008.zip
 
-  IBM HTTP Server Fixpack V9.0.0.7 binaries:
-  * 9.0.0-WS-IHSPLG-FP007.zip
+  IBM HTTP Server Fixpack V9.0.0.8 binaries:
+  * 9.0.0-WS-IHSPLG-FP008.zip
 
-  IBM Java SDK Fixpack V8.0.5.16 Installation Manager Repository binaries:
-  * ibm-java-sdk-8.0-5.16-linux-x64-installmgr.zip
+  IBM Java SDK Fixpack V8.0.5.17 Installation Manager Repository binaries:
+  * ibm-java-sdk-8.0-5.17-linux-x64-installmgr.zip
 
   IBM Db2 Server V11.1 Fix Pack 3
   * v11.1.3fp3_linuxx64_server_t.tar.gz
@@ -94,7 +94,7 @@ Prereq: all binaries should be accessible via a web server during building phase
     ```
     Build Maximo Asset Management Installation image:
     ```bash
-    docker build -t maximo/maximo:7.6.0.9 -t maximo/maximo:latest --network build maximo
+    docker build -t maximo/maximo:7.6.1 -t maximo/maximo:latest --network build maximo
     ```
     Note: If the build has failed during Maximo Feature Pack installation, run the docker build again.
 7. Run containers by using the Docker Compose file to create and deploy instances:

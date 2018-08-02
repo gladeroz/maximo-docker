@@ -17,8 +17,8 @@ MAINTAINER Julien Barreault <barreaultj@gmail.com>
 
 ARG url=ftp://192.168.1.23/maxweb
 ARG urlopt="--user=maximo --password=maximo"
-ARG fp=7
-ARG javafp=5.16
+ARG fp=8
+ARG javafp=5.17
 ARG httpport=80
 
 WORKDIR /tmp
@@ -48,7 +48,7 @@ RUN wget $urlopt -q ${url}/${WASND_PLG_NAME}.zip \
  && rm -rf ${WASND_PLG_NAME}* \
  && rm -rf ${WASND_JAVA_NAME}*
 
-# Install IBM HTTP Server and WebSphere Plugin V9 fix pack 7
+# Install IBM HTTP Server and WebSphere Plugin V9 fix pack 8
 ENV WASFP_IHS_NAME 9.0.0-WS-IHSPLG-FP00${fp}
 RUN wget $urlopt -q ${url}/${WASFP_IHS_NAME}.zip \
  && /opt/IBM/InstallationManager/eclipse/tools/imcl \
