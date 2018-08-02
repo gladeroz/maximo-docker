@@ -17,8 +17,8 @@ MAINTAINER Julien Barreault <barreaultj@gmail.com>
 
 ARG url=ftp://192.168.1.23/maxwas
 ARG urlopt="--user=maximo --password=maximo"
-ARG fp=7
-ARG javafp=5.16
+ARG fp=8
+ARG javafp=5.17
 
 ENV TEMP /tmp
 WORKDIR /tmp
@@ -38,7 +38,7 @@ RUN ulimit -n 8192
 RUN echo "fs.file-max = 1232457" >> /etc/sysctl.d/99-maximo.conf
 
 # Install IBM Installation Manager 1.8
-ENV IM_IMAGE agent.installer.linux.gtk.x86_64_1.8.2000.20150303_1526.zip
+ENV IM_IMAGE agent.installer.linux.gtk.x86_64_1.8.9001.20180709_1302.zip
 
 RUN mkdir /Install_Mgr && wget $urlopt -q $url/$IM_IMAGE \
  && unzip -q -d /Install_Mgr $IM_IMAGE \
