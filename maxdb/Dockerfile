@@ -16,7 +16,8 @@ MAINTAINER Yasutaka Nishimura <nishi2go@gmail.com>
 MAINTAINER Julien Barreault <barreaultj@gmail.com>
 
 ARG url=ftp://10.142.6.112/maxdb
-ARG urlopt="--user=maximo --password=maximo --no-passive-ftp"
+#ARG urlopt="--user=maximo --password=maximo --no-passive-ftp"
+ARG urlopt=""
 
 ARG ver=11.1
 ARG fp=3fp3

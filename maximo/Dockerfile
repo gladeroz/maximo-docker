@@ -16,7 +16,8 @@ MAINTAINER Yasutaka Nishimura <nishi2go@gmail.com>
 MAINTAINER Julien Barreault <barreaultj@gmail.com>
 
 ARG url=ftp://10.142.6.112/maximo
-ARG urlopt="--user=maximo --password=maximo --no-passive-ftp"
+#ARG urlopt="--user=maximo --password=maximo --no-passive-ftp"
+ARG urlopt=""
 ARG httpport=80
 
 ENV TEMP /tmp
