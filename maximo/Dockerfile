@@ -47,7 +47,7 @@ ENV BYPASS_PRS=True
 ENV MAM_IMAGE MAM_7.6.1_LINUX64.tar.gz
 RUN wget $urlopt -q $url/$MAM_IMAGE && tar -xf $MAM_IMAGE \
  && /opt/IBM/InstallationManager/eclipse/tools/imcl \
- -input /SilentResponseFiles/Unix/ResponseFile_MAM_Install_Unix.xml \
+ -input /Launchpad/SilentResponseFiles/Unix/ResponseFile_MAM_Install_Unix.xml \
  -acceptLicense -log /tmp/MAM_Install_Unix.xml \
  && rm $MAM_IMAGE
 
