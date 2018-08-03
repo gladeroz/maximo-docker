@@ -45,9 +45,9 @@ ENV BYPASS_PRS=True
 
 ## Install Maximo V7.6
 ENV MAM_IMAGE MAM_7.6.1_LINUX64.tar.gz
-RUN wget $urlopt -q $url/$MAM_IMAGE && tar -xvf $MAM_IMAGE \
+RUN wget $urlopt -q $url/$MAM_IMAGE && tar -xf $MAM_IMAGE \
  && /opt/IBM/InstallationManager/eclipse/tools/imcl \
- -input /Launchpad/SilentResponseFiles/Installer/Unix/ResponseFile_MAM_Install_Unix.xml \
+ -input /SilentResponseFiles/Installer/Unix/ResponseFile_MAM_Install_Unix.xml \
  -acceptLicense -log /tmp/MAM_Install_Unix.xml \
  && rm $MAM_IMAGE
 
