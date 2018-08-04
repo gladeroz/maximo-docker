@@ -1,5 +1,10 @@
 version: '3'
 services:
+  ibmim:
+    image: maximo/ibmim
+    hostname: ibmim
+    networks:
+    - maxnet
   maxdb:
     image: maximo/db2
     hostname: maxdb
@@ -64,6 +69,8 @@ services:
     networks:
     - maxnet
 networks:
+  maxnet:
+volumes:
   maxdb76:
   vardb2:
   pae76:

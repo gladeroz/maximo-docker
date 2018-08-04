@@ -10,32 +10,26 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-FROM centos:7
+FROM maximo/ibmim
 
 MAINTAINER Yasutaka Nishimura <nishi2go@gmail.com>
 MAINTAINER Julien Barreault <barreaultj@gmail.com>
 
-ARG url=ftp://192.168.1.23/maximo
-#ARG urlopt="--user=maximo --password=maximo --no-passive-ftp"
-ARG urlopt=""
+ARG fp=1
+
+ARG ftp_url
+ARG url=ftp://${ftp_url}/maximo
+
 ARG httpport=80
+ARG installfp=no
+ARG installscheduler=yes
+ARG skin=iot18
 
 ENV TEMP /tmp
 WORKDIR /tmp
 
-RUN yum update -y && yum install -y wget unzip nc which && yum clean all
-
-# Install IBM Installation Manager 1.8
-ENV IM_IMAGE agent.installer.linux.gtk.x86_64_1.8.9001.20180709_1302.zip
-
-RUN mkdir /Install_Mgr && wget $urlopt -q $url/$IM_IMAGE \
- && unzip -q -d /Install_Mgr $IM_IMAGE \
- && rm $IM_IMAGE \
- && /Install_Mgr/installc -log /tmp/IM_Install_Unix.xml -acceptLicense \
- && rm -rf /Install_Mgr
-
-## Update Installation Manager
-RUN /opt/IBM/InstallationManager/eclipse/tools/imcl install com.ibm.cic.agent
+# Install required packages
+RUN apt update && apt install -y netcat inetutils-ping && rm -rf /var/lib/apt/lists/*
 
 ## Install Maximo middleware and installer
 RUN mkdir /Launchpad
@@ -43,44 +37,34 @@ WORKDIR /Launchpad
 
 ENV BYPASS_PRS=True
 
-## Install Maximo V7.6
+## Install Maximo V7.6.1
 ENV MAM_IMAGE MAM_7.6.1_LINUX64.tar.gz
-RUN wget $urlopt -q $url/$MAM_IMAGE && tar -xf $MAM_IMAGE \
+## Remove z from tar command because file is not gzipped despite having gz extension
+RUN wget -q $url/$MAM_IMAGE && tar xpf $MAM_IMAGE \
  && /opt/IBM/InstallationManager/eclipse/tools/imcl \
  -input /Launchpad/SilentResponseFiles/Unix/ResponseFile_MAM_Install_Unix.xml \
  -acceptLicense -log /tmp/MAM_Install_Unix.xml \
  && rm $MAM_IMAGE
 
-## Install Maximo V7.6.0.9 feature packs
 RUN mkdir /work
 WORKDIR /work
 
-##ENV MAM_FP_IMAGE MAMMTFP7609IMRepo.zip
-
-##RUN wget $urlopt -q $url/$MAM_FP_IMAGE && sleep 5 \
-## && /opt/IBM/InstallationManager/eclipse/tools/imcl install \
-## com.ibm.tivoli.tpae.base.mam.main -repositories /work/$MAM_FP_IMAGE \
-## -installationDirectory /opt/IBM/SMP -log /tmp/FP_Install_Unix.xml -acceptLicense \
-## && rm $MAM_FP_IMAGE
-
-## Install Maximo V7.6.0.9 ifix 5
-##ENV MAM_IFIX 20180522-0831
-##ENV MAM_IFIX_IMAGE TPAE_7609_IFIX.$MAM_IFIX.im.zip
-
-##RUN wget $urlopt -q $url/$MAM_IFIX_IMAGE && sleep 5 \
-## && /opt/IBM/InstallationManager/eclipse/tools/imcl install \
-## com.ibm.tivoli.tpae.base.mam.main.$MAM_IFIX -repositories /work/$MAM_IFIX_IMAGE \
-## -installationDirectory /opt/IBM/SMP -log /tmp/IFIX_Install_Unix.xml \
-## && rm $MAM_IFIX_IMAGE
-
+# Install Maximo V7.6.1 feature pack
+ENV MAM_FP_IMAGE MAMMTFP761${fp}IMRepo.zip
+RUN if [ "${installfp}" = "yes" ]; then wget -q $url/$MAM_FP_IMAGE && sleep 5 \
+ && /opt/IBM/InstallationManager/eclipse/tools/imcl install \
+ com.ibm.tivoli.tpae.base.mam.main -repositories /work/$MAM_FP_IMAGE \
+ -installationDirectory /opt/IBM/SMP -log /tmp/FP_Install_Unix.xml -acceptLicense \
+ && rm $MAM_FP_IMAGE; fi
+ 
 #Installation scheduler
-##ENV MAM_SCHEDULER_ZIP MAM_Scheduler_7.6.7.zip
+ENV MAM_SCHEDULER_ZIP MAM_Scheduler_7.6.7.zip
 
-##RUN wget $urlopt -q $url/$MAM_SCHEDULER_ZIP && sleep 5 \
-## && /opt/IBM/InstallationManager/eclipse/tools/imcl install \
-## com.ibm.tivoli.tpae.IS.Scheduler -repositories /work/$MAM_SCHEDULER_ZIP \
-## -installationDirectory /opt/IBM/SMP -log /tmp/SCHEDULE_Install_Unix.xml -acceptLicense \
-## && rm $MAM_SCHEDULER_ZIP
+RUN if [ "${installscheduler}" = "yes" ]; then wget -q $url/$MAM_SCHEDULER_ZIP && sleep 5 \
+ && /opt/IBM/InstallationManager/eclipse/tools/imcl install \
+ com.ibm.tivoli.tpae.IS.Scheduler -repositories /work/$MAM_SCHEDULER_ZIP \
+ -installationDirectory /opt/IBM/SMP -log /tmp/SCHEDULE_Install_Unix.xml -acceptLicense \
+ && rm $MAM_SCHEDULER_ZIP; fi
 
 ENV MAXADMIN_PASSWORD maxadmin
 ENV MAXREG_PASSWORD maxreg
@@ -116,6 +100,8 @@ COPY StopAllServers.py /opt
 COPY StartAllServers.py /opt
 COPY AddVirtualHosts.py /opt
 COPY SetAutoRestart.py /opt
+
+ENV SKIN=${skin}
 
 COPY startinstall.sh /work
 RUN chmod +x startinstall.sh

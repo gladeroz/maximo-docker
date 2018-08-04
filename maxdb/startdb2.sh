@@ -77,11 +77,9 @@ EOS
     db2 update db cfg for $MAXDB using AUTO_REVAL DEFERRED
     db2 update db cfg for $MAXDB using DEC_TO_CHAR_FMT NEW
     db2 update db cfg for $MAXDB using REC_HIS_RETENTN 30
-
     db2 update alert cfg for database on $MAXDB using db.db_backup_req SET THRESHOLDSCHECKED YES
     db2 update alert cfg for database on $MAXDB using db.tb_reorg_req SET THRESHOLDSCHECKED YES
     db2 update alert cfg for database on $MAXDB using db.tb_runstats_req SET THRESHOLDSCHECKED YES
-
     db2 update dbm cfg using PRIV_MEM_THRESH 32767 DEFERRED
     db2 update dbm cfg using KEEPFENCED NO DEFERRED
     db2 update dbm cfg using NUMDB 2 DEFERRED
@@ -90,7 +88,6 @@ EOS
     db2 update dbm cfg using AGENT_STACK_SZ 1024 DEFERRED
     db2 update dbm cfg using MON_HEAP_SZ AUTOMATIC DEFERRED
     db2 update dbm cfg using diagsize 512
-
     db2set DB2_SKIPINSERTED=ON
     db2set DB2_INLIST_TO_NLJN=YES
     db2set DB2_MINIMIZE_LISTPREFETCH=YES
@@ -100,7 +97,6 @@ EOS
     db2set DB2_USE_ALTERNATE_PAGE_CLEANING=ON
     db2stop force
     db2start
-
     db2 connect to $MAXDB
     db2 CREATE BUFFERPOOL MAXBUFPOOL IMMEDIATE SIZE 4096 AUTOMATIC PAGESIZE 32 K
     db2 CREATE REGULAR TABLESPACE MAXDATA PAGESIZE 32 K MANAGED BY AUTOMATIC STORAGE INITIALSIZE 5000 M BUFFERPOOL MAXBUFPOOL
@@ -127,6 +123,10 @@ EOS
 su - ctginst1 -c db2start
 
 # Wait until DB2 port is opened
+until ncat localhost 50005 >/dev/null 2>&1; do
+  sleep 10
+done
+
 while ncat localhost 50005 >/dev/null 2>&1; do
   sleep 10
 done
