@@ -12,8 +12,8 @@ services:
     - maxnet
     privileged: true
     volumes:
-    - /tmp/db2:/home/ctginst1/ctginst1
-    - /tmp/db2:/var/db2
+    - maxdb76:/home/ctginst1/ctginst1
+    - vardb2:/var/db2
   maxdmgr:
     image: maximo/maxdmgr
     hostname: maxdmgr
@@ -64,4 +64,6 @@ services:
     networks:
     - maxnet
 networks:
-  maxnet:
+  maxdb76:
+  vardb2:
+  pae76:
