@@ -10,3 +10,50 @@
 #docker run -d --rm --name alfresco  -p 7000:8080 gui81/alfresco
 #docker run -d --rm --name jenkins   -p 8000:8080 -p 50000:50000 -v $montage/jenkins:/var/jenkins_home jenkins/jenkins
 #docker run -d --rm --name sonarqube -p 9000:9000 -p 9092:9092 sonarqube/sonarqube
+
+
+
+docker run -u root -p 8080:8080 -v jenkins_home:/var/jenkins_home -v $(which docker):/usr/bin/docker -v /var/run/docker.sock:/var/run/docker.sock jenkins/jenkins:lts
+
+node {
+    stage('Clean WS') {
+        step([$class: 'WsCleanup'])
+    }
+    stage('Initialisation') { // for display purposes
+        sh 'apt-get update && apt-get install -y libltdl7'
+        sh 'curl -L https://github.com/docker/compose/releases/download/1.22.0/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose'
+        sh 'chmod +x /usr/local/bin/docker-compose'
+    }
+    stage('Clone repository') {
+        checkout([$class: 'GitSCM', branches: [[name: '*/master']],
+        userRemoteConfigs: [[url: 'http://github.com/gladeroz/maximo-docker.git']]])
+    }
+    stage('Create DB2 image') {
+        def dockerfile = 'Dockerfile'
+        def customImage = docker.build("maximo/db2:11.1.3", "-t maximo/db2:latest --network build maxdb") 
+    }
+    stage('Create MAXWAS image') {
+        def dockerfile = 'Dockerfile'
+        def customImage = docker.build("maximo/maxwas:9.0.0.7", "-t maximo/maxwas:latest --network build maxwas") 
+    }
+    stage('Create MAXDMGR image') {
+        def dockerfile = 'Dockerfile'
+        def customImage = docker.build("maximo/maxdmgr:9.0.0.7", "-t maximo/maxdmgr:latest maxdmgr") 
+    }
+    stage('Create MAXAPPS image') {
+        def dockerfile = 'Dockerfile'
+        def customImage = docker.build("maximo/maxapps:9.0.0.7", "-t maximo/maxapps:latest maxapps") 
+    }
+    stage('Create MAXWEB image') {
+        def dockerfile = 'Dockerfile'
+        def customImage = docker.build("maximo/maxweb:9.0.0.7", "-t maximo/maxweb:latest --network build maxweb") 
+    }
+    stage('Create MAXIMO image') {
+        def dockerfile = 'Dockerfile'
+        def customImage = docker.build("maximo/maximo:7.6.0.9", "-t maximo/maximo:latest --network build maximo") 
+    }
+    stage('Compose maximo') {
+        sh 'docker-compose up -d'
+        sh 'docker-compose logs -f -t'
+    }
+}
