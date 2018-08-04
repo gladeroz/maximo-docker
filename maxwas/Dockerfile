@@ -15,7 +15,7 @@ FROM centos:7
 MAINTAINER Yasutaka Nishimura <nishi2go@gmail.com>
 MAINTAINER Julien Barreault <barreaultj@gmail.com>
 
-ARG url=ftp://10.142.6.112/maxwas
+ARG url=ftp://192.168.150.1/maxwas
 #ARG urlopt="--user=maximo --password=maximo --no-passive-ftp"
 ARG urlopt=""
 ARG fp=8
