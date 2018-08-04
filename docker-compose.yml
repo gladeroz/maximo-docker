@@ -64,6 +64,8 @@ services:
     networks:
     - maxnet
 networks:
+  maxnet:
+volumes:
   maxdb76:
   vardb2:
   pae76:
