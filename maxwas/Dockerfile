@@ -39,7 +39,7 @@ RUN ulimit -n 8192
 RUN echo "fs.file-max = 1232457" >> /etc/sysctl.d/99-maximo.conf
 
 # Install IBM Installation Manager 1.8
-ENV IM_IMAGE agent.installer.linux.gtk.x86_64_1.8.9000.20180313_1417.zip
+ENV IM_IMAGE agent.installer.linux.gtk.x86_64_1.8.9001.20180709_1302.zip
 
 RUN mkdir /Install_Mgr && wget $urlopt -q $url/$IM_IMAGE \
  && unzip -q -d /Install_Mgr $IM_IMAGE \
