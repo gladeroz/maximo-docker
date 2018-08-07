@@ -92,6 +92,8 @@ EOF
 # Run Configuration Tool
 /opt/IBM/SMP/ConfigTool/scripts/reconfigurePae.sh -action deployConfiguration \
     -inputfile $CONFIG_FILE -automatej2eeconfig
+    
+/opt/IBM/SMP/ConfigTool/scripts/reconfigurePae.sh -action deployDatabaseConfiguration -deployDemoData
 
 # Add 80 and 443 to maximo_host
 /opt/IBM/SMP/ConfigTool/wasclient/ThinWsadmin.sh -lang jython \
@@ -104,8 +106,6 @@ EOF
     -f /opt/SetAutoRestart.py
 
 sleep 10
-
-/opt/IBM/SMP/ConfigTool/scripts/reconfigurePae.sh -action deployDatabaseConfiguration -deployDemoData
 
 /opt/IBM/SMP/ConfigTool/scripts/reconfigurePae.sh -action updateApplication \
     -updatedb -deploymaximoear -enableSkin IoT18 -enableEnhancedNavigation
