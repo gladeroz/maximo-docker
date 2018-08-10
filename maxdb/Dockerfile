@@ -15,7 +15,7 @@ FROM centos:7
 MAINTAINER Yasutaka Nishimura <nishi2go@gmail.com>
 MAINTAINER Julien Barreault <barreaultj@gmail.com>
 
-ARG url=${FTP_URL}/maxdb
+ARG url=$FTP_URL/maxdb
 ARG ver=11.1
 ARG fp=3fp3
 

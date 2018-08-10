@@ -15,7 +15,7 @@ FROM maximo/maxwas
 MAINTAINER Yasutaka Nishimura <nishi2go@gmail.com>
 MAINTAINER Julien Barreault <barreaultj@gmail.com>
 
-ARG url=${FTP_URL}/maxweb
+ARG url=$FTP_URL/maxweb
 ARG fp=8
 ARG javafp=5.17
 ARG httpport=80
