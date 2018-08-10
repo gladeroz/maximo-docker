@@ -20,7 +20,7 @@ ARG fp=1
 ARG url=ftp://192.168.1.23/maximo
 ARG httpport=80
 ARG installfp=no
-ARG installscheduler=no
+ARG installscheduler=yes
 
 ENV TEMP /tmp
 WORKDIR /tmp
@@ -78,6 +78,7 @@ ENV MAXADMIN_PASSWORD maxadmin
 ENV MAXREG_PASSWORD maxreg
 ENV MXINTADM_PASSWORD mxintadm
 ENV BASE_LANG en
+ENV ADD_LANGS fr
 ENV ADMIN_EMAIL_ADDRESS root@localhost
 ENV SMTP_SERVER_HOST_NAME localhost
 ENV MAXDB MAXDB76

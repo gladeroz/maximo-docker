@@ -113,8 +113,6 @@ sleep 10
     -username "$DMGR_ADMIN_USER" -password "$DMGR_ADMIN_PASSWORD" \
     -f /opt/StopAllServers.py
     
-#/opt/IBM/SMP/maximo/tools/maximo/maxinst -sMAXDATA -tMAXDATA
-     
 # Start all application servers ... sometimes to fail to start servers during updateApplicaton task
 /opt/IBM/SMP/ConfigTool/wasclient/ThinWsadmin.sh -lang jython \
     -username "$DMGR_ADMIN_USER" -password "$DMGR_ADMIN_PASSWORD" \
