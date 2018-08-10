@@ -15,9 +15,7 @@ FROM maximo/maxwas
 MAINTAINER Yasutaka Nishimura <nishi2go@gmail.com>
 MAINTAINER Julien Barreault <barreaultj@gmail.com>
 
-ARG url=ftp://192.168.1.23/maxweb
-#ARG urlopt="--user=maximo --password=maximo --no-passive-ftp"
-ARG urlopt=""
+ARG url=${FTP_URL}/maxweb
 ARG fp=8
 ARG javafp=5.17
 ARG httpport=80
@@ -27,8 +25,8 @@ WORKDIR /tmp
 # Install IBM HTTP Server V9
 ENV WASND_IHS_NAME was.repo.9000.ihs
 ENV WASND_JAVA_NAME sdk.repo.8030.java8.linux
-RUN wget $urlopt -q ${url}/${WASND_IHS_NAME}.zip \
- && wget $urlopt -q ${url}/${WASND_JAVA_NAME}.zip \
+RUN wget -q ${url}/${WASND_IHS_NAME}.zip \
+ && wget -q ${url}/${WASND_JAVA_NAME}.zip \
  && /opt/IBM/InstallationManager/eclipse/tools/imcl -acceptLicense \
    install com.ibm.websphere.IHS.v90 com.ibm.java.jdk.v8 \
    -repositories /tmp/${WASND_IHS_NAME}.zip,/tmp/${WASND_JAVA_NAME}.zip \
@@ -39,8 +37,8 @@ RUN wget $urlopt -q ${url}/${WASND_IHS_NAME}.zip \
 
 # Install WebSphere Plugin V9
 ENV WASND_PLG_NAME was.repo.9000.plugins
-RUN wget $urlopt -q ${url}/${WASND_PLG_NAME}.zip \
- && wget $urlopt -q ${url}/${WASND_JAVA_NAME}.zip \
+RUN wget -q ${url}/${WASND_PLG_NAME}.zip \
+ && wget -q ${url}/${WASND_JAVA_NAME}.zip \
  && /opt/IBM/InstallationManager/eclipse/tools/imcl -acceptLicense \
    install com.ibm.websphere.PLG.v90 com.ibm.java.jdk.v8 \
    -repositories /tmp/${WASND_PLG_NAME}.zip,/tmp/${WASND_JAVA_NAME}.zip \
@@ -51,7 +49,7 @@ RUN wget $urlopt -q ${url}/${WASND_PLG_NAME}.zip \
 
 # Install IBM HTTP Server and WebSphere Plugin V9 fix pack 8
 ENV WASFP_IHS_NAME 9.0.0-WS-IHSPLG-FP00${fp}
-RUN wget $urlopt -q ${url}/${WASFP_IHS_NAME}.zip \
+RUN wget -q ${url}/${WASFP_IHS_NAME}.zip \
  && /opt/IBM/InstallationManager/eclipse/tools/imcl \
    -acceptLicense install com.ibm.websphere.IHS.v90 com.ibm.websphere.PLG.v90 \
    -repositories ${WASFP_IHS_NAME}.zip \
@@ -60,7 +58,7 @@ RUN wget $urlopt -q ${url}/${WASFP_IHS_NAME}.zip \
 
 # Install IBM Java SDK Fix pack
 ENV JAVA_SDK_NAME ibm-java-sdk-8.0-${javafp}-linux-x64-installmgr
-RUN wget $urlopt -q ${url}/${JAVA_SDK_NAME}.zip \
+RUN wget -q ${url}/${JAVA_SDK_NAME}.zip \
  && /opt/IBM/InstallationManager/eclipse/tools/imcl \
    -acceptLicense install com.ibm.java.jdk.v8 \
    -repositories /tmp/${JAVA_SDK_NAME}.zip \
