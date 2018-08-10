@@ -57,6 +57,7 @@ Database.Vendor=DB2
 Database.DB2.DatabaseName=$MAXDB
 Database.DB2.ServerHostName=$DB_FQDN
 Database.DB2.ServerPort=$DB_PORT
+Database.DB2.IndexTablespaceName=MAXINDEX
 Database.DB2.DataTablespaceName=MAXDATA
 Database.DB2.TempTablespaceName=MAXTEMP
 Database.DB2.Vargraphic=true
@@ -90,10 +91,7 @@ WAS.VirtualHost=maximo_host
 EOF
 
 # Run Configuration Tool
-/opt/IBM/SMP/ConfigTool/scripts/reconfigurePae.sh -action deployConfiguration \
-    -inputfile $CONFIG_FILE -automatej2eeconfig
-    
-/opt/IBM/SMP/ConfigTool/scripts/reconfigurePae.sh -action deployDatabaseConfiguration -deployDemoData
+/opt/IBM/SMP/ConfigTool/scripts/reconfigurePae.sh -action deployConfiguration -inputfile $CONFIG_FILE -automatej2eeconfig -deployDemoData
 
 # Add 80 and 443 to maximo_host
 /opt/IBM/SMP/ConfigTool/wasclient/ThinWsadmin.sh -lang jython \
