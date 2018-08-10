@@ -4,7 +4,7 @@ services:
     image: maximo/db2
     hostname: maxdb
     environment:
-    - FTP_URL=${FTP_URL}
+    - FTP_URL=ftp://192.168.1.23
     - CTGINST1_PASSWORD=changeit
     - CTGFENC1_PASSWORD=changeit
     - DASUSR1_PASSWORD=changeit
@@ -40,7 +40,7 @@ services:
     image: maximo/maxweb
     hostname: maxweb
     environment:
-    - FTP_URL=${FTP_URL}
+    - FTP_URL=ftp://192.168.1.23
     - DMGR_ADMIN_PASSWORD=changeit
     ports:
     - 80:80
@@ -52,7 +52,7 @@ services:
     image: maximo/maximo
     hostname: maximo
     environment:
-    - FTP_URL=${FTP_URL}
+    - FTP_URL=ftp://192.168.1.23
     - DMGR_ADMIN_PASSWORD=changeit
     - DB_MAXIMO_PASSWORD=changeit
     - MXINTADM_PASSWORD=changeit
