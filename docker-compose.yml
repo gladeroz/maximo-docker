@@ -1,5 +1,10 @@
 version: '3'
 services:
+  ibmim:
+    image: maximo/ibmim
+    hostname: ibmim
+    networks:
+    - maxnet
   maxdb:
     image: maximo/db2
     hostname: maxdb
