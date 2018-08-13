@@ -26,7 +26,7 @@ WORKDIR /tmp
 RUN apt update && apt install -y wget unzip && rm -rf /var/lib/apt/lists/*
 
 # Install IBM Installation Manager 1.8.9
-ENV IM_IMAGE agent.installer.linux.gtk.x86_64_1.8.9001.20180709_1302.zip
+ENV IM_IMAGE agent.installer.linux.gtk.x86_64_1.8.9000.20180313_1417.zip
 
 RUN mkdir /Install_Mgr && wget -q $url/$IM_IMAGE \
  && unzip -q -d /Install_Mgr $IM_IMAGE \
