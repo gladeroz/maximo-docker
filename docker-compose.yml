@@ -2,8 +2,11 @@ version: '3'
 services:
   maxdb:
     image: maximo/db2
+    env_file:
+    - ./maximo.env
     hostname: maxdb
     environment:
+    - FTP_URL=${FTP_URL}
     - CTGINST1_PASSWORD=changeit
     - CTGFENC1_PASSWORD=changeit
     - DASUSR1_PASSWORD=changeit
@@ -16,17 +19,23 @@ services:
     - vardb2:/var/db2
   maxdmgr:
     image: maximo/maxdmgr
+    env_file:
+    - ./maximo.env
     hostname: maxdmgr
     ports:
     - 9043:9043
     environment:
+    - FTP_URL=${FTP_URL}
     - DMGR_ADMIN_PASSWORD=changeit
     networks:
     - maxnet
   maxapps:
     image: maximo/maxapps
+    env_file:
+    - ./maximo.env
     hostname: maxapps
     environment:
+    - FTP_URL=${FTP_URL}
     - DMGR_ADMIN_PASSWORD=changeit
     networks:
     - maximo
@@ -37,8 +46,11 @@ services:
     - maxnet
   maxweb:
     image: maximo/maxweb
+    env_file:
+    - ./maximo.env
     hostname: maxweb
     environment:
+    - FTP_URL=${FTP_URL}
     - DMGR_ADMIN_PASSWORD=changeit
     ports:
     - 80:80
@@ -48,8 +60,11 @@ services:
     - maxnet
   maximo:
     image: maximo/maximo
+    env_file:
+    - ./maximo.env
     hostname: maximo
     environment:
+    - FTP_URL=${FTP_URL}
     - DMGR_ADMIN_PASSWORD=changeit
     - DB_MAXIMO_PASSWORD=changeit
     - MXINTADM_PASSWORD=changeit
