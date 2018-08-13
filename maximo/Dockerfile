@@ -17,7 +17,7 @@ MAINTAINER Julien Barreault <barreaultj@gmail.com>
 
 ARG fp=1
 
-ARG url=ftp://$FTP_URL/maximo
+ARG url=ftp://${FTP_URL}/maximo
 ARG httpport=80
 ARG installfp=no
 ARG installscheduler=yes
