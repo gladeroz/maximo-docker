@@ -4,7 +4,6 @@ services:
     image: maximo/db2
     hostname: maxdb
     environment:
-    - FTP_URL=192.168.56.1
     - CTGINST1_PASSWORD=changeit
     - CTGFENC1_PASSWORD=changeit
     - DASUSR1_PASSWORD=changeit
@@ -21,7 +20,6 @@ services:
     ports:
     - 9043:9043
     environment:
-    - FTP_URL=192.168.56.1
     - DMGR_ADMIN_PASSWORD=changeit
     networks:
     - maxnet
@@ -29,7 +27,6 @@ services:
     image: maximo/maxapps
     hostname: maxapps
     environment:
-    - FTP_URL=192.168.56.1
     - DMGR_ADMIN_PASSWORD=changeit
     networks:
     - maximo
@@ -42,7 +39,6 @@ services:
     image: maximo/maxweb
     hostname: maxweb
     environment:
-    - FTP_URL=192.168.56.1
     - DMGR_ADMIN_PASSWORD=changeit
     ports:
     - 80:80
@@ -54,7 +50,6 @@ services:
     image: maximo/maximo
     hostname: maximo
     environment:
-    - FTP_URL=192.168.56.1
     - DMGR_ADMIN_PASSWORD=changeit
     - DB_MAXIMO_PASSWORD=changeit
     - MXINTADM_PASSWORD=changeit
