@@ -12,8 +12,9 @@
 
 FROM maximo/ibmim
 
-ARG FTP_URL
-ARG url=ftp://${FTP_URL}/maxwas
+ARG ftp_url
+ARG url=ftp://${ftp_url}/maxwas
+
 ARG fp=8
 ARG javafp=5.17
 

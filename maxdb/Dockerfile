@@ -14,8 +14,8 @@ FROM ubuntu:16.04
 MAINTAINER Yasutaka Nishimura <nishi2go@gmail.com>
 MAINTAINER Julien Barreault <barreaultj@gmail.com>
 
-ARG FTP_URL
-ARG url=ftp://${FTP_URL}/maxdb
+ARG ftp_url
+ARG url=ftp://${ftp_url}/maxdb
 
 ARG ver=11.1
 ARG fp=3fp3
