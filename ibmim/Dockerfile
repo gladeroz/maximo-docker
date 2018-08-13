@@ -14,6 +14,7 @@ FROM ubuntu:16.04
 
 MAINTAINER Yasutaka Nishimura <nishi2go@gmail.com>
 
+ARG FTP_URL
 ARG url=ftp://${FTP_URL}/ibmim
 ARG updateim=no
 
