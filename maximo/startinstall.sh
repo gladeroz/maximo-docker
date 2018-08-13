@@ -87,7 +87,7 @@ EOF
 
 # Run Configuration Tool
 /opt/IBM/SMP/ConfigTool/scripts/reconfigurePae.sh -action deployConfiguration \
-    -inputfile $CONFIG_FILE -automatej2eeconfig
+    -inputfile $CONFIG_FILE -automatej2eeconfig -deployDemoData
 
 # Add 80 and 443 to maximo_host
 /opt/IBM/SMP/ConfigTool/wasclient/ThinWsadmin.sh -lang jython \
