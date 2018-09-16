@@ -23,7 +23,7 @@ ARG url=ftp://${ftp_url}/maximo
 ARG httpport=80
 ARG installfp=no
 ARG installscheduler=yes
-ARG skin=iot18
+ARG skin=tivoli13
 
 ENV TEMP /tmp
 WORKDIR /tmp
